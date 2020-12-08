@@ -1,7 +1,6 @@
 // Part 1
 // O(N²)
-#[allow(dead_code)]
-fn part_1_n_squared(xs: Vec<i32>) -> i32 {
+fn part_1_n_squared(xs: &Vec<i32>) -> i32 {
     let n = xs.len();
     for i in 0..n - 1 {
         for j in i + 1..n {
@@ -15,8 +14,7 @@ fn part_1_n_squared(xs: Vec<i32>) -> i32 {
 
 // Part 2
 // O(N³)
-#[allow(dead_code)]
-fn part_2_n_cubed(xs: Vec<i32>) -> i32 {
+fn part_2_n_cubed(xs: &Vec<i32>) -> i32 {
     let n = xs.len();
     for i in 0..n - 2 {
         for j in i + 1..n - 1 {
@@ -32,8 +30,8 @@ fn part_2_n_cubed(xs: Vec<i32>) -> i32 {
 
 // Part 1
 // O(NlogN)
-#[allow(dead_code)]
-fn part_1_n_logn(mut xs: Vec<i32>) -> i32 {
+fn part_1_n_logn(xs0: &Vec<i32>) -> i32 {
+    let mut xs = xs0.clone();
     let n = xs.len();
     xs.sort();
     for i in 0..n {
@@ -48,8 +46,8 @@ fn part_1_n_logn(mut xs: Vec<i32>) -> i32 {
 
 // Part 2
 // O(N²logN)
-#[allow(dead_code)]
-fn part_2_n_squared_logn(mut xs: Vec<i32>) -> i32 {
+fn part_2_n_squared_logn(xs0: &Vec<i32>) -> i32 {
+    let mut xs = xs0.clone();
     let n = xs.len();
     xs.sort();
     for i in 0..n - 1 {
@@ -65,7 +63,15 @@ fn part_2_n_squared_logn(mut xs: Vec<i32>) -> i32 {
 }
 
 fn main() {
-    let input = std::fs::read_to_string("input.txt").unwrap();
+    use std::env::args;
+    use std::fs::read_to_string;
+
+    let input_file = 
+        args()
+        .skip(1)
+        .next()
+        .expect("Input file is not provided");
+    let input = read_to_string(&input_file).unwrap();
     let xs =
         input
         .split('\n')
@@ -73,8 +79,9 @@ fn main() {
         .map(|x| x.parse::<i32>().unwrap())
         .collect::<Vec<_>>();
 
-    println!("{}", part_1_n_squared(xs));
-    // println!("{}", part_2_n_cubed(xs));
-    // println!("{}", part_1_n_logn(xs));
-    // println!("{}", part_2_n_squared_logn(xs));
+    println!("Input file: {}", input_file);
+    println!("Part 1: O(N²):     {}", part_1_n_squared(&xs));
+    println!("Part 2: O(N³):     {}", part_2_n_cubed(&xs));
+    println!("Part 1: O(NlogN):  {}", part_1_n_logn(&xs));
+    println!("Part 2: O(N²logN): {}", part_2_n_squared_logn(&xs));
 }

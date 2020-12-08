@@ -1,8 +1,6 @@
-# Quick Start
+# [Day 1](https://adventofcode.com/2020/day/1) solution in [Rust](https://www.rust-lang.org/)
 
-Install Rust: https://www.rust-lang.org/
+## Quick Start
 
-```console
-$ rustc main.rs
-$ ./main
-```
+- install [Rust](https://www.rust-lang.org/) and make sure `rustc` is available in `$PATH`
+- `$ make`
