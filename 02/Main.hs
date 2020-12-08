@@ -1,5 +1,8 @@
 module Main where
 
+import System.Environment
+import Text.Printf
+
 data Row = Row { rowChar :: Char
                , rowRange :: (Int, Int) 
                , rowPassword :: String
@@ -33,4 +36,12 @@ isCorrectV2 (Row c (low, high) password) = (a == c) /= (b == c)
         b = password !! (high - 1)
 
 main :: IO ()
-main = interact $ (++ "\n") . show . length . filter isCorrectV2 . map rowFromString . lines
+main = do
+  args <- getArgs
+  case args of
+    (filePath:_) -> do
+      printf "Input file: %s\n" filePath
+      rows <- map rowFromString . lines <$> readFile filePath
+      printf "Part 1: %d\n" $ length $ filter isCorrectV1 rows 
+      printf "Part 2: %d\n" $ length $ filter isCorrectV2 rows
+    _ -> error "Input file is not provided"
