@@ -99,7 +99,21 @@ struct RequiredField
     bool function(string) is_valid;    
 }
 
-bool is_valid(Field[] fields)
+bool is_valid_v1(Field[] fields)
+{
+    string[] required_fields = [ "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid", ];
+    string[] field_names = fields.map!((field) => field.name).array;
+
+    foreach (required_field; required_fields) {
+        if (!field_names.canFind(required_field)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool is_valid_v2(Field[] fields)
 {
     RequiredField[] required_fields = [
         RequiredField("byr", &is_byr_valid),
@@ -138,24 +152,52 @@ void parse_fields(ref Field[] fields, string line)
     }
 }
 
-void main()
+int part_1(Field[][] passports)
 {
-    Field[] fields = [];
     int result = 0;
-    foreach (line; readText("input.txt").splitLines()) {
-        if (line.empty) {
-            if (is_valid(fields)) {
-                result += 1;
-            }
-            fields.length = 0;
-        } else {
-            parse_fields(fields, line);
+    foreach(passport; passports) {
+        if (is_valid_v1(passport)) {
+            result += 1;
         }
     }
+    return result;
+}
 
-    if (is_valid(fields)) {
-        result += 1;
+int part_2(Field[][] passports)
+{
+    int result = 0;
+    foreach(passport; passports) {
+        if (is_valid_v2(passport)) {
+            result += 1;
+        }
+    }
+    return result;
+}
+
+int main(string[] args)
+{
+    if (args.length < 2) {
+        writeln("Input file is not provided");
+        return 1;
     }
 
-    writeln(result);
+    string filepath = args[1];
+
+    Field[][] passports = [];
+    Field[] passport = [];
+    foreach (line; readText(filepath).splitLines()) {
+        if (line.empty) {
+            passports ~= passport;
+            passport.length = 0;
+        } else {
+            parse_fields(passport, line);
+        }
+    }
+    passports ~= passport;
+
+    writeln("Input file: ", filepath);
+    writeln("Part 1: ", part_1(passports));
+    writeln("Part 2: ", part_2(passports));
+
+    return 0;
 }
