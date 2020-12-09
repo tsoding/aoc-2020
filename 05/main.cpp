@@ -64,26 +64,27 @@ int id_of_pass(string pass)
     return row_of_pass(pass) * 8 + col_of_pass(pass);
 }
 
-void part_1()
+void part_1(const char *file_path)
 {
-    ifstream fin("input.txt");
+    ifstream fin(file_path);
 
     int ans = numeric_limits<int>::min();
+    cout << "Part 1: " << endl;
     while (fin) {
         string pass;
         getline(fin, pass);
         if (pass.size() == 10) {
             auto id = id_of_pass(pass);
             ans = max(ans, id);
-            cout << pass << " -> " << id_of_pass(pass) << endl;
+            cout << "  " << pass << " -> " << id_of_pass(pass) << endl;
         }
     }
-    cout << ans << endl;
+    cout << "  Answer: " << ans << endl;
 }
 
-void part_2()
+void part_2(const char *file_path)
 {
-    ifstream fin("input.txt");
+    ifstream fin(file_path);
 
     set<int> ids_nuts;
     while (fin) {
@@ -95,7 +96,9 @@ void part_2()
         }
     }
 
+    std::cout << "Part 2: " << std::endl;
     for (int row = 0; row < 128; ++row) {
+        cout << "  ";
         for (int col = 0; col < 8; ++col) {
             if (ids_nuts.find(row * 8 + col) != ids_nuts.end()) {
                 cout << "* ";
@@ -107,10 +110,18 @@ void part_2()
     }
 }
 
-int main()
+void solve_file(const char *file_path)
 {
-    part_1();
-    part_2();
+    cout << "Input file: " << file_path << endl;
+    part_1(file_path);
+    part_2(file_path);
+}
+
+int main(int argc, char **argv)
+{
+    for (int i = 1; i < argc; ++i) {
+        solve_file(argv[i]);
+    }
 
     return 0;
 }
