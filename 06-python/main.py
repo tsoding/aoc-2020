@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import sys
+
 def every_yesu(answers):
     result = {}
     for answer in answers:
@@ -17,8 +19,9 @@ def any_yesu(answers):
             result.add(x)
     return len(result)
 
-if __name__ == "__main__":
-    with open('input.txt', 'r') as file:
+def solve_file(file_path):
+    print("Input file: %s" % file_path)
+    with open(file_path, 'r') as file:
         lines = map(
             lambda x: x.strip(),
             [line for line in file.readlines()])
@@ -34,5 +37,9 @@ if __name__ == "__main__":
                 answers = []
         any_result += any_yesu(answers)
         every_result += every_yesu(answers)
-        print(any_result)
-        print(every_result)
+        print("Part 1: %d" % any_result)
+        print("Part 2: %d" % every_result)
+
+if __name__ == "__main__":
+    for file_path in sys.argv[1:]:
+        solve_file(file_path)
