@@ -1,0 +1,6 @@
+*.byte
+*.native
+*.cmi
+*.cmo
+*.cmx
+*.o
