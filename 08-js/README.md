@@ -1,4 +1,4 @@
-# [Day 8] solution in JavaScript
+# [Day 8](https://adventofcode.com/2020/day/8) solution in JavaScript
 
 ## Quick Start
 
