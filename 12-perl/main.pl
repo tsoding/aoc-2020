@@ -2,7 +2,6 @@
 
 use strict;
 use warnings;
-use Math::Trig;
 
 sub part_1($) {
     my ($file_path) = @_;
@@ -72,6 +71,9 @@ sub part_2($) {
     my $ship_y = 0;
     my $wp_x = 10;
     my $wp_y = 1;
+
+    my @sin = (0, 1, 0, -1,);
+    my @cos = (1, 0, -1, 0,);
     
     open(FH, '<', $file_path) or die $!;
     # print("ship_x: $ship_x, ship_y: $ship_y, wp_x: $wp_x, wp_y: $wp_y\n");
@@ -87,9 +89,9 @@ sub part_2($) {
                     $arg = -$arg;
                 }
 
-                my $angle = $arg * pi() / 180.0;
-                my $new_wp_x = cos($angle) * $wp_x - sin($angle) * $wp_y;
-                my $new_wp_y = sin($angle) * $wp_x + cos($angle) * $wp_y;
+                my $angle = $arg / 90;
+                my $new_wp_x = $cos[$angle] * $wp_x - $sin[$angle] * $wp_y;
+                my $new_wp_y = $sin[$angle] * $wp_x + $cos[$angle] * $wp_y;
                 $wp_x = $new_wp_x;
                 $wp_y = $new_wp_y;
             } elsif ($cmd =~ m/[F]/) {
