@@ -1,3 +1,4 @@
+-- Stolen from https://www.luafaq.org/#T1.15
 function dump(o)
     if type(o) == 'table' then
         local s = '{ '
@@ -105,12 +106,16 @@ function match_rule_index(line, rules, index)
 end
 
 function fully_parsed(inputs)
+   local result = false
+
    for _, input in ipairs(inputs) do
-      if #input > 0 then
-         return false
+      if #input == 0 then
+         result = true
+         break;
       end
    end
-   return true
+
+   return result
 end
 
 function part_1(file_path)
@@ -130,8 +135,6 @@ function part_1(file_path)
       else
          local inputs = match_rule_index(line, rules, 0)
          if #inputs > 0 and fully_parsed(inputs) then
-            -- print(line)
-            -- print(dump(rests))
             result = result + 1
          end
       end
@@ -143,7 +146,7 @@ end
 
 function solve_file(file_path)
    print("Input file:", file_path)
-   print("Part 1", part_1(file_path))
+   print(part_1(file_path))
 end
 
 for i=1,#arg do
