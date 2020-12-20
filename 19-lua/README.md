@@ -13,7 +13,7 @@ Lua 5.3.3  Copyright (C) 1994-2016 Lua.org, PUC-Rio
 Input file:	input-01.txt
 Part 1	102
 Input file:	input-02.txt
-Part 1	318
+Part 2	318
 ```
 
 ## Quick Start
