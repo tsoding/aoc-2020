@@ -30,15 +30,31 @@ function sides_of_rows(rows :: Array{String, 1}) :: Array{String, 1}
     return result
 end
 
-function rotate(tile :: Tile) :: Tile
-    rows = String[]
-    for i in 1:10
+function rotate_lines(lines :: Array{String, 1}) :: Array{String, 1}
+    h = length(lines)
+    w = length(lines[1])
+
+    result = String[]
+    for i in 1:w
         row = Char[]
-        for j in 1:10
-            push!(row, tile.rows[10 - j + 1][i])
+        for j in 1:h
+            push!(row, lines[h - j + 1][i])
         end
-        push!(rows, String(row))
+        push!(result, String(row))
     end
+    return result
+end
+
+function rotate(tile :: Tile) :: Tile
+    rows = rotate_lines(tile.rows)
+    # rows = String[]
+    # for i in 1:10
+    #     row = Char[]
+    #     for j in 1:10
+    #         push!(row, tile.rows[10 - j + 1][i])
+    #     end
+    #     push!(rows, String(row))
+    # end
 
     return Tile(tile.id, rows, sides_of_rows(rows))
 end
@@ -51,12 +67,21 @@ end
 # 4 5 6  
 # 1 2 3
 
-function flip(tile :: Tile) :: Tile
+function flip_lines(lines :: Array{String, 1}) :: Array{String, 1}
     rows = String[]
-    for i in 1:10
-        push!(rows, tile.rows[10 - i + 1])
+    h = length(lines)
+    for i in 1:h
+        push!(rows, lines[h - i + 1])
     end
+    return rows
+end
 
+function flip(tile :: Tile) :: Tile
+    # rows = String[]
+    # for i in 1:10
+    #     push!(rows, tile.rows[10 - i + 1])
+    # end
+    rows = flip_lines(tile.rows)
     return Tile(tile.id, rows, sides_of_rows(rows))
 end
 
@@ -217,51 +242,98 @@ function part_1(tiles :: Array{Tile, 1}) :: Int
     return result
 end
 
-function part_2(tiles :: Array{Tile, 1}) :: Int
-    picture = Array{Array{Tile, 1}, 1}()
+function count_hash(lines :: Array{String, 1}) :: Int
+    result = 0
+    for line in lines
+        for x in line
+            if x == '#'
+                result += 1
+            end
+        end
+    end
+    return result
+end
 
-    push!(picture, Array{Tile, 1}())
+
+monster = ["                  # ",
+           "#    ##    ##    ###",
+           " #  #  #  #  #  #   "]
+
+function contains_monster(drow :: Int, dcol :: Int, picture :: Array{String, 1}) :: Bool
+    for row0 in 0:(3 - 1)
+        for col0 in 0:(20 - 1)
+            if monster[row0 + 1][col0 + 1] == '#'
+                if picture[row0 + drow][col0 + dcol] != '#'
+                    return false
+                end
+            end
+        end
+    end
+    return true
+end
+
+function count_monsters(picture :: Array{String, 1}) :: Int
+    result = 0
+    for drow in 1:(96 - (3))
+        for dcol in 1:(96 - (20))
+            if contains_monster(drow, dcol, picture)
+                result += 1
+            end
+        end
+    end
+    return result
+end
+
+function part_2(tiles :: Array{Tile, 1}) :: Int
+    puzzle = Array{Array{Tile, 1}, 1}()
+
+    push!(puzzle, Array{Tile, 1}())
     for tile in tiles
         if side_matches(tile, tiles) == [0, 1, 1, 0]
-            push!(picture[1], tile)
+            push!(puzzle[1], tile)
             break
         end
     end
 
     for i in 2:12
-        right = find_right(picture[1][i - 1], tiles)
-        push!(picture[1], right)
+        right = find_right(puzzle[1][i - 1], tiles)
+        push!(puzzle[1], right)
     end
 
     for i in 2:12
-        push!(picture, Array{Tile, 1}())
-        bottom = find_bottom(picture[i - 1][1], tiles)
-        push!(picture[i], bottom)
+        push!(puzzle, Array{Tile, 1}())
+        bottom = find_bottom(puzzle[i - 1][1], tiles)
+        push!(puzzle[i], bottom)
 
         for j in 2:12
-            right_bottom = find_right_bottom(picture[i][j - 1],
-                                             picture[i - 1][j],
+            right_bottom = find_right_bottom(puzzle[i][j - 1],
+                                             puzzle[i - 1][j],
                                              tiles)
-            push!(picture[i], right_bottom)
+            push!(puzzle[i], right_bottom)
         end
     end
 
-    for row in picture
+    picture = Array{String, 1}()
+
+    for row in puzzle
         for i in 2:9
+            picture_row = Array{String, 1}()
             for tile in row
-                print("$(tile.rows[i][2:9])")
+                push!(picture_row, tile.rows[i][2:9])
             end
-            println("")
+            push!(picture, join(picture_row))
         end
     end
 
-    return 69
+    picture = flip_lines(picture)
+
+    return count_hash(picture) - count_monsters(picture) * count_hash(monster)
 end
 
 function solve_file(file_path :: String)
     println("Input file: $(file_path)")
     tiles = parse_file(file_path)
-    # println("Part 1: $(part_1(tiles))")
+    println("Part 1: $(part_1(tiles))")
     println("Part 2: $(part_2(tiles))")
 end
 
