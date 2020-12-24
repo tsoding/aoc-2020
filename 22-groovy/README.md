@@ -3,10 +3,10 @@
 ## Tested on
 
 ```console
-$ java -version
-openjdk version "11.0.9" 2020-10-20
-OpenJDK Runtime Environment (build 11.0.9+11-post-Debian-1deb10u1)
-OpenJDK 64-Bit Server VM (build 11.0.9+11-post-Debian-1deb10u1, mixed mode, sharing)
+$ java --version
+java 13.0.1 2019-10-15
+Java(TM) SE Runtime Environment (build 13.0.1+9)
+Java HotSpot(TM) 64-Bit Server VM (build 13.0.1+9, mixed mode, sharing)
 $ groovy --version
 Groovy Version: 3.0.7 JVM: 13.0.1 Vendor: Oracle Corporation OS: Linux
 ```
