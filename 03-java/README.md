@@ -1,5 +1,9 @@
 # [Day 3](https://adventofcode.com/2020/day/3) solution in [Java](https://www.oracle.com/java/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/mlth0Bn18Vs/hqdefault.jpg)](https://www.youtube.com/watch?v=mlth0Bn18Vs&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&t=700s)
+
 ## Tested on
 
 ```
