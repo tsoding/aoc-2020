@@ -1,5 +1,9 @@
 # [Day 18](https://adventofcode.com/2020/day/18) solution in [Kotlin](https://kotlinlang.org/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/gGDuoey_TnE/hqdefault.jpg)](https://www.youtube.com/watch?v=gGDuoey_TnE&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&t=777s)
+
 ## Tested on
 
 ```console

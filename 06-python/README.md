@@ -1,5 +1,9 @@
 # [Day 6](https://adventofcode.com/2020/day/6) solution in [Python](https://www.python.org/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/vVjNyY2jkqg/hqdefault.jpg)](https://www.youtube.com/watch?v=vVjNyY2jkqg&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&t=3970s)
+
 ## Tested on
 
 ```console

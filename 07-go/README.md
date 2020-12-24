@@ -1,5 +1,9 @@
 # [Day 7](https://adventofcode.com/2020/day/7) solution in [Go](https://golang.org/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/FXPmwFubyDE/hqdefault.jpg)](https://www.youtube.com/watch?v=FXPmwFubyDE&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&t=713s)
+
 ## Tested on 
 
 ```console

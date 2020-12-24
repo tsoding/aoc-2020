@@ -1,5 +1,9 @@
 # [Day 10](https://adventofcode.com/2020/day/10) solution in C
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/lHzbWWjdloM/hqdefault.jpg)](https://www.youtube.com/watch?v=lHzbWWjdloM&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&t=709s)
+
 ## Tested on
 
 ```console

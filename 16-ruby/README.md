@@ -1,5 +1,9 @@
 # [Day 16](https://adventofcode.com/2020/day/16) solution in [Ruby](https://www.ruby-lang.org/en/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/xb-yZhokKSw/hqdefault.jpg)](https://www.youtube.com/watch?v=xb-yZhokKSw&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&t=807s)
+
 ## Tested on
 
 ```console

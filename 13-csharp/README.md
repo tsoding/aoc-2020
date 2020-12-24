@@ -1,5 +1,9 @@
 # [Day 13](https://adventofcode.com/2020/day/13) solution in [C#](https://csharp.net/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/i2bya8kNXjw/hqdefault.jpg)](https://www.youtube.com/watch?v=i2bya8kNXjw&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&t=708s)
+
 ## Tested on
 
 ```console

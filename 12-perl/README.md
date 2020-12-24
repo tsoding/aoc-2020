@@ -1,5 +1,9 @@
 # [Day 12](https://adventofcode.com/2020/day/12) solution in [Perl](https://www.perl.org/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/R00JE6QRbno/hqdefault.jpg)](https://www.youtube.com/watch?v=R00JE6QRbno&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&t=742s)
+
 ## Tested on
 
 ```console

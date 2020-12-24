@@ -1,5 +1,9 @@
 # [Day 14](https://adventofcode.com/2020/day/14) solution in [PHP](https://www.php.net/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/95ooXiwVeMM/hqdefault.jpg)](https://www.youtube.com/watch?v=95ooXiwVeMM&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P)
+
 ## Tested on
 
 ```console

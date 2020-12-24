@@ -1,5 +1,9 @@
 # [Day 21](https://adventofcode.com/2020/day/21) solution in [Racket](https://racket-lang.org/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/tP98VjF9Ljo/hqdefault.jpg)](https://www.youtube.com/watch?v=tP98VjF9Ljo&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&t=730s)
+
 ## Tested on
 
 ```console

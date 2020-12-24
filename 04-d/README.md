@@ -1,5 +1,9 @@
 # [Day 4](https://adventofcode.com/2020/day/4) solution in [D](https://dlang.org/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/cvvNfuS4BwI/hqdefault.jpg)](https://www.youtube.com/watch?v=cvvNfuS4BwI&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&t=755s)
+
 ## Tested on
 
 ```console

@@ -1,5 +1,9 @@
 # [Day 17](https://adventofcode.com/2020/day/17) solution in [Scala](https://www.scala-lang.org/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/rKPG4bGQLGk/hqdefault.jpg)](https://www.youtube.com/watch?v=rKPG4bGQLGk&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&t=734s)
+
 ## Tested on
 
 ```console

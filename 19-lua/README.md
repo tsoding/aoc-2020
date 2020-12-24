@@ -1,5 +1,9 @@
 # [Day 19](https://adventofcode.com/2020/day/19) solution in [Lua](https://www.lua.org/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/6lFNgR5DkFg/hqdefault.jpg)](https://www.youtube.com/watch?v=6lFNgR5DkFg&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&t=740s)
+
 ## Test on
 
 ```console
