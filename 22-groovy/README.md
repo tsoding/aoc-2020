@@ -1,5 +1,9 @@
 # [Day 22](https://adventofcode.com/2020/day/22) solution in [Groovy](https://groovy-lang.org/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/mq3ZIGRgZOA/hqdefault.jpg)](https://www.youtube.com/watch?v=mq3ZIGRgZOA&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&t=709s)
+
 ## Tested on
 
 ```console
