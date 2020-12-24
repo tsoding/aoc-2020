@@ -1,5 +1,9 @@
 # [Day 1](https://adventofcode.com/2020/day/1) solution in [Rust](https://www.rust-lang.org/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/uodcgWA8trs/hqdefault.jpg)](https://www.youtube.com/watch?v=uodcgWA8trs&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&index=1&t=615s)
+
 ## Tested on 
 
 ```console
