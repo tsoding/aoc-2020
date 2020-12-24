@@ -27,8 +27,8 @@ Part 2: 1727094849536
 
 - install [GCC] or [Clang] and make sure `gcc` or `clang`
 are available in `$PATH`
-- `$ CXX=gcc make` in case of [GCC]
-- `$ CXX=clang make` in case of [Clang]
+- `$ CC=gcc make` in case of [GCC]
+- `$ CC=clang make` in case of [Clang]
 
 
 [GCC]: https://gcc.gnu.org/
