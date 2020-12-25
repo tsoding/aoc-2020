@@ -1,5 +1,9 @@
 # [Day 23](https://adventofcode.com/2020/day/23) solution in [Dart](https://dart.dev/)
 
+## Screencast
+
+[![screencast](http://i3.ytimg.com/vi/p_wl80ugHSc/hqdefault.jpg)](https://www.youtube.com/watch?v=p_wl80ugHSc&list=PLpM-Dvs8t0Vba3v-9lweHuomr0DPhdX6P&t=743s)
+
 ## Tested on
 
 ```console
