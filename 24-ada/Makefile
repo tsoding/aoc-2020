@@ -1,4 +1,4 @@
-INPUTS=sample.txt input.txt
+INPUTS=input.txt
 
 .PHONY: test
 test: day24 $(INPUTS)
