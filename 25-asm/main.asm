@@ -12,10 +12,43 @@ BITS 64
 
 %define O_RDONLY 0
 
-%define INPUT_BUFFER_SIZE 1024
+%define BUFFER_CAPACITY 256
 
 global _start
 section .text
+
+;; rdi - number
+itoa:
+    mov rbx, 10
+    mov rsi, buffer_end - 1
+.begin:
+    test rdi, rdi
+    jz .end
+    mov rax, rdi
+    mov rdx, 0
+    div rbx
+    mov rdi, rax
+    add rdx, '0'
+    mov [rsi], dl
+    dec rsi
+    jmp .begin
+.end:
+    mov rax, rsi
+    inc rax
+    ret
+
+;; rdi - subject_number
+;; rsi - state
+;; --
+;; rax - next state
+transform_step:
+    mov rax, rsi
+    mov rcx, 20201227
+    mul rdi
+    mov rdx, 0
+    div rcx
+    mov rax, rdx
+    ret
 
 ;; rdi - subject_number
 ;; rsi - loop_size
@@ -34,183 +67,81 @@ transform:
 .end:
     ret
 
-;; rdi - buf
-;; rsi - buf_size
-;; rdx - needle
-;; ---
-;; rax - needle index
-strchr:
+;; rdi - subject_number
+;; rsi - public_key
+;; ----
+;; rax - loop_size
+crack_loop_size:
+    mov rax, 1
+    mov rbx, 1                  ;state
 .begin:
-    test rsi, rsi
-    jz .end
+    push rax
+    push rbx
+    push rdi
+    push rsi
 
-    mov al, [rdi]
-    cmp rax, rdx
+    mov rsi, rbx
+    call transform_step
+
+    pop rsi
+    pop rdi
+    pop rbx
+
+    cmp rax, rsi
     je .end
+    mov rbx, rax
 
-    inc rdi
-    dec rsi
-    jmp .begin
-
-.end:
-    mov rax, rdi
-    ret
-
-;; rdi - number
-;; rsi - buf
-;; rdx - buf_size
-itoa:
-    mov rax, SYS_EXIT
-    mov rdi, 69
-    syscall
-    ret
-
-;; rdi - buf
-;; rsi - buf_size
-;; 1234
-atoi:
-    mov rax, 0
-    mov rbx, 0
-    mov rcx, 10
-.begin:
-    test rsi, rsi
-    jz .end
-    mov bl, [rdi]
-    sub rbx, '0'
-    mul rcx
-    add rax, rbx
-    dec rsi
-    inc rdi
-    jmp .begin
-.end:
-    ret
-
-strlen:
-    mov rax, 0
-.begin:
-    mov bl, [rdi]
-    test bl, bl
-    jz .end
+    pop rax
     inc rax
-    inc rdi
     jmp .begin
 .end:
+    pop rax
     ret
 
 ; %rdi %rsi %rdx %r10 %r8 %r9
 
-print:
-    push rdi
-    call strlen
+_start:
+    mov rdi, 7
+    mov rsi, [card_public_key]
+    call crack_loop_size
 
-    mov rdx, rax
-    mov rax, SYS_WRITE
-    mov rdi, STDOUT,
-    pop rsi
-    syscall
-
-    ret
-
-println:
-    call print
-    mov rdi, nl
-    call print
-    ret
-
-;; rdi  - file_path
-;; rsi  - buf
-;; rdx  - buf_size
-slurp_file:
-    push rsi                    ;buf
-    push rdx                    ;buf_size
-
-    mov rax, SYS_OPEN
-    ;; rdi already contains the file_path
-    mov rsi, O_RDONLY
-    mov rdx, 0
-    syscall
+    ;; rdi - subject_number
+    mov rdi, [door_public_key]
+    ;; rsi - loop_size
+    mov rsi, rax
+    call transform
 
     mov rdi, rax
-    mov rax, SYS_READ
-    pop rdx
-    pop rsi
+    call itoa
 
-    push rdi
-    syscall
-    pop rdi
-
-    push rax
-
-    mov rax, SYS_CLOSE
+    mov rsi, rax
+    mov rdx, buffer_end
+    sub rdx, rsi
+    mov rdi, STDOUT
+    mov rax, SYS_WRITE
     syscall
 
-    pop rax
-    ret
-
-; rdi - file_path
-parse_input:
-    mov rsi, input_buffer
-    mov rdx, INPUT_BUFFER_SIZE
-    call slurp_file
-    mov [input_buffer_size], rax
-
-    ret
-
-solve_file:
-    ;; Cosmetic printing
-    mov rdi, input_file_label
-    call print
-    mov rdi, [input_file_path]
-    call println
-
-    ;; Parse the input
-    mov rdi, [input_file_path]
-    call parse_input
-
-    mov rdi, input_buffer
-    mov rsi, [input_buffer_size]
-    mov rdx, 10
-    call strchr
-
-    ret
-
-_start:
-    mov rax, [rsp]
-    dec rax
-    mov rsi, rsp
-    add rsi, 16
-
-.begin:
-    test rax, rax
-    jz .end
-
-    push rsi
-    push rax
-    mov rdi, [rsi]
-    mov [input_file_path], rdi
-    call solve_file
-    pop rax
-    pop rsi
-    add rsi, 8
-    dec rax
-
-    jmp .begin
-.end:
+    mov rax, SYS_WRITE
+    mov rdi, STDOUT
+    mov rsi, nl
+    mov rdx, 1
+    syscall
 
     mov rax, SYS_EXIT
     mov rdi, 0
     syscall
 
 section .data
-nl:
-    db 10, 0
-input_file_label:
-    db "Input file: ", 0
+;; Sample
+; card_public_key: dq 5764801
+; door_public_key: dq 17807724
+;; Input
+card_public_key: dq 11239946
+door_public_key: dq 10464955
+
+nl: db 10
 
 section .bss
-input_file_path:
-    resq 1
-input_buffer:
-    resb INPUT_BUFFER_SIZE
-input_buffer_size:
-    resq 1
+buffer:
+    resb BUFFER_CAPACITY
+buffer_end:
