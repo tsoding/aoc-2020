@@ -1,3 +1,9 @@
+INPUTS=sample.txt input.txt
+
+.PHONY: test
+test: main $(INPUTS)
+	./main $(INPUTS)
+
 main: main.o
 	ld -o main main.o
 
