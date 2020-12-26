@@ -1,0 +1,14 @@
+// (subject_number ^ loop_size) % 20201227
+transform(subject_number, loop_size) {
+  x = 1
+  for i in 0..loop_size {
+    x = x * subject_number
+    x = x % 20201227
+  }
+}
+
+card_public_key = transform(7, card_loop_size);
+door_public_key = transform(7, door_loop_size);
+
+transform(door_public_key, card_loop_size) ==
+transform(card_public_key, door_loop_size)

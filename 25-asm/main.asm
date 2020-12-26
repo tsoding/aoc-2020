@@ -17,6 +17,74 @@ BITS 64
 global _start
 section .text
 
+;; rdi - subject_number
+;; rsi - loop_size
+transform:
+    mov rax, 1
+    mov rcx, 20201227
+.begin:
+    test rsi, rsi
+    jz .end
+    mul rdi
+    mov rdx, 0
+    div rcx
+    mov rax, rdx
+    dec rsi
+    jmp .begin
+.end:
+    ret
+
+;; rdi - buf
+;; rsi - buf_size
+;; rdx - needle
+;; ---
+;; rax - needle index
+strchr:
+.begin:
+    test rsi, rsi
+    jz .end
+
+    mov al, [rdi]
+    cmp rax, rdx
+    je .end
+
+    inc rdi
+    dec rsi
+    jmp .begin
+
+.end:
+    mov rax, rdi
+    ret
+
+;; rdi - number
+;; rsi - buf
+;; rdx - buf_size
+itoa:
+    mov rax, SYS_EXIT
+    mov rdi, 69
+    syscall
+    ret
+
+;; rdi - buf
+;; rsi - buf_size
+;; 1234
+atoi:
+    mov rax, 0
+    mov rbx, 0
+    mov rcx, 10
+.begin:
+    test rsi, rsi
+    jz .end
+    mov bl, [rdi]
+    sub rbx, '0'
+    mul rcx
+    add rax, rbx
+    dec rsi
+    inc rdi
+    jmp .begin
+.end:
+    ret
+
 strlen:
     mov rax, 0
 .begin:
@@ -89,20 +157,20 @@ parse_input:
     ret
 
 solve_file:
+    ;; Cosmetic printing
     mov rdi, input_file_label
     call print
-
     mov rdi, [input_file_path]
     call println
 
+    ;; Parse the input
     mov rdi, [input_file_path]
     call parse_input
 
-    mov rax, SYS_WRITE
-    mov rdi, STDOUT
-    mov rsi, input_buffer
-    mov rdx, [input_buffer_size]
-    syscall
+    mov rdi, input_buffer
+    mov rsi, [input_buffer_size]
+    mov rdx, 10
+    call strchr
 
     ret
 
