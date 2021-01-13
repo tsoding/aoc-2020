@@ -13,7 +13,7 @@ procedure Day24 is
         Z : Integer;
     end record;
 
-    function Tile_Add(T1: Tile; T2: Tile) return Tile is
+    function "+"(T1: Tile; T2: Tile) return Tile is
     begin
         return (T1.X + T2.X, T1.Y + T2.Y, T1.Z + T2.Z);
     end;
@@ -63,7 +63,7 @@ procedure Day24 is
         Result: Integer := 0;
     begin
         for Dir of Dir_To_Delta loop
-            if Is_Black(F, Tile_Add(T, Dir)) then
+            if Is_Black(F, T + Dir) then
                 Result := Result + 1;
             end if;
         end loop;
@@ -87,7 +87,7 @@ procedure Day24 is
         Floor.Clear(F2);
         for C in Floor.Iterate(F1) loop
             for Dir of Dir_To_Delta loop
-                T := Tile_Add(Floor.Key(C), Dir);
+                T := Floor.Key(C) + Dir;
                 Neighbours := Count_Neighbours(F1, T);
                 if Is_Black(F1, T) then
                     Set_Tile(F2, T, not (Neighbours = 0 or Neighbours > 2));
@@ -141,7 +141,7 @@ procedure Day24 is
         while Length(Input) > 0 loop
             Dir := Next_Dir(To_String (Input));
             Input := Unbounded_Slice(Input, Dir'Img'Length + 1, Length(Input));
-            Result := Tile_Add(Result, Dir_To_Delta (Dir));
+            Result := Result + Dir_To_Delta (Dir);
         end loop;
 
         return Result;
